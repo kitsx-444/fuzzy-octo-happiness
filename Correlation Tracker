@@ -1,0 +1,36 @@
+class CorrelationTracker():
+	def __init__(self, pair_a, pair_b, correlation_score):
+		self.pair_a = pair_a
+		self.pair_b = pair_b
+		self.correlation_score = correlation_score
+	def display_1(self):
+		print(f'{self.pair_a} | {self.pair_a} | {self.correlation_score}')
+	def correlation_label(self):
+		if self.correlation_score > 70:
+			return 'Strong positive correlation'
+		elif self.correlation_score <= 70:
+			if self.correlation_score >= 30:
+				return 'Moderate positive correlation'
+		elif self.correlation_score <= -30:
+			if self.correlation_score <= 30:
+				return 'No significant correlation'
+		elif self.correlation_score <= -70:
+			if self.correlation_score >= 30:
+				return 'Moderate negative correlation'
+		elif self.correlation_score > -70:
+			return 'Strong negative correlation'
+	def to_dict(self):
+		data = {'pair_a': self.pair_a,
+				'pair_b': self.pair_b,
+				'score': self.correlation_score,
+				'label': self.correlation_label()} # Is label the currency pair?
+		return data
+
+tracker_list = [CorrelationTracker('EUR', 'GBP', -30), # how come init doesn't work with negative numbers?
+				CorrelationTracker('GBP', 'CAD', 20),
+				CorrelationTracker('CAD', 'JPY', 0),
+				CorrelationTracker('USD', 'CHF', 50)]
+
+def summarise(tracker_list):
+	for logs in tracker_list:
+		list(logs.to_dict())
