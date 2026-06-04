@@ -4,20 +4,17 @@ class CorrelationTracker():
 		self.pair_b = pair_b
 		self.correlation_score = correlation_score
 	def display_1(self):
-		print(f'{self.pair_a} | {self.pair_a} | {self.correlation_score}')
+		print(f'{self.pair_a} | {self.pair_b} | {self.correlation_score}')
 	def correlation_label(self):
 		if self.correlation_score > 70:
 			return 'Strong positive correlation'
-		elif self.correlation_score <= 70:
-			if self.correlation_score >= 30:
-				return 'Moderate positive correlation'
-		elif self.correlation_score <= -30:
-			if self.correlation_score <= 30:
-				return 'No significant correlation'
-		elif self.correlation_score <= -70:
-			if self.correlation_score >= 30:
+		if self.correlation_score >= 30:
+			return 'Moderate positive correlation'
+		elif self.correlation_score >= -30:
+			return 'No significant correlation'
+		elif self.correlation_score >= -70:
 				return 'Moderate negative correlation'
-		elif self.correlation_score > -70:
+		else:
 			return 'Strong negative correlation'
 	def to_dict(self):
 		data = {'pair_a': self.pair_a,
@@ -33,4 +30,8 @@ tracker_list = [CorrelationTracker('EUR', 'GBP', -30), # how come init doesn't w
 
 def summarise(tracker_list):
 	for logs in tracker_list:
-		list(logs.to_dict())
+		# This pattern is called storing a return value in a variable and using it.
+		data = logs.to_dict()
+		print(data)
+
+summarise(tracker_list)
